@@ -11,12 +11,23 @@ repositories {
 
 sourceSets {
     main {
+        output.resourcesDir = file("out/classes")
+        output.classesDir = file("out/classes")
+        java{
+            srcDirs=["src/main/java"]
+//            outputDir = "out/classes"
+//            output.classesDir = "out/classes"
+//            output.resourcesDir = "out/classes"
+        }
+
         resources {
             srcDirs=["src/main/resources","config"]
+
         }
     }
 }
 dependencies {
+//    compile projects('decrypt')
     testCompile group: 'junit', name: 'junit', version: '4.12'
     compile group: 'log4j', name: 'log4j', version: '1.2.17'
     compile group: 'org.springframework', name: 'spring-context', version: '4.2.4.RELEASE'
