@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath*:/properties/*.properties</value>
+                <value>classpath*:/jdbc/*.properties</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="log4jPropertyConfigurer" class="com.util.Log4jPropertyConfigurer">
+        <property name="location">
+            <value>classpath*:log4j/log4j.properties</value>
+        </property>
+    </bean>
+
+    <bean id=" managerLogin" class="java.util.HashMap">
+        <constructor-arg>
+            <map>
+                <entry key="key">
+                    <value>${com.manager.login.key}</value>
+                </entry>
+                <entry key="enPassword">
+                    <value>${com.manager.login.encrypt.password}</value>
+                </entry>
+                <entry key="dePassword">
+                    <value>${com.manager.login.decrypt.password}</value>
+                </entry>
+            </map>
+        </constructor-arg>
+    </bean>
+
+    <bean id=" managerJdbc" class="java.util.HashMap">
+        <constructor-arg>
+            <map>
+                <entry key="key">
+                    <value>${com.manager.jdbc.key}</value>
+                </entry>
+            </map>
+        </constructor-arg>
+    </bean>
+    <bean id=" dservJdbc" class="java.util.HashMap">
+        <constructor-arg>
+            <map>
+                <entry key="key">
+                    <value>${com.dserv.jdbc.key}</value>
+                </entry>
+            </map>
+        </constructor-arg>
+    </bean>
+</beans>
