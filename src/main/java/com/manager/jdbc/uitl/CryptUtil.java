@@ -60,14 +60,13 @@ public class CryptUtil {
      * @CreateDate : 2017-08-28 星期一 14:30:58
      */
     public static File encryptFile(File sourceFile, String outFile, String sKey) {
-        //新建临时加密文件
-        File encrypfile = null;
+        File encryptFile = null;
         InputStream inputStream = null;
         OutputStream outputStream = null;
         try {
             inputStream = new FileInputStream(sourceFile);
-            encrypfile = new File(outFile);
-            outputStream = new FileOutputStream(encrypfile);
+            encryptFile = new File(outFile);
+            outputStream = new FileOutputStream(encryptFile);
             Cipher cipher = initAESCipher(sKey, Cipher.ENCRYPT_MODE);
             //以加密流写入文件
             CipherInputStream cipherInputStream = new CipherInputStream(inputStream, cipher);
@@ -94,7 +93,7 @@ public class CryptUtil {
                 e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
             }
         }
-        return encrypfile;
+        return encryptFile;
     }
 
     /**

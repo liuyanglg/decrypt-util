@@ -2,8 +2,22 @@ group 'com.lyf'
 version '1.0-SNAPSHOT'
 
 apply plugin: 'java'
+apply plugin: 'application'
+apply plugin: 'idea'
+
+idea{
+    module {
+        inheritOutputDirs = false
+        outputDir =file("${buildDir}/classes")
+        testOutputDir = file("${buildDir}/test-classes")
+//        outputDir = compileJava.destinationDir
+//        testOutputDir = compileTestJava.destinationDir
+    }
+}
 
 sourceCompatibility = 1.8
+
+mainClassName='com.main.LaunchApp'
 
 repositories {
     mavenCentral()
@@ -11,13 +25,10 @@ repositories {
 
 sourceSets {
     main {
-        output.resourcesDir = file("out/classes")
-        output.classesDir = file("out/classes")
+        output.resourcesDir = file("${buildDir}/classes")
+        output.classesDir = file("${buildDir}/classes")
         java{
             srcDirs=["src/main/java"]
-//            outputDir = "out/classes"
-//            output.classesDir = "out/classes"
-//            output.resourcesDir = "out/classes"
         }
 
         resources {
@@ -35,4 +46,15 @@ dependencies {
     compile group: 'org.springframework', name: 'spring-beans', version: '4.2.4.RELEASE'
     compile group: 'org.springframework', name: 'spring-context-support', version: '4.2.4.RELEASE'
 
+}
+
+def mainClassName = "com.main.LaunchApp"
+jar{
+    manifest {
+        attributes "Main-Class": "$mainClassName"
+    }
+
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
 }

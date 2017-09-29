@@ -75,9 +75,9 @@ public class CryptUtil {
             DesUtil des = new DesUtil();
             inputStream.read(b);
             String data = new String(b).toString();
-            LOG.info("定时任务项目jdbc原文："+data);
+//            LOG.info("定时任务项目jdbc原文："+data);
             String enData = des.encrypt(data);
-            LOG.info("定时任务项目jdbc加密："+enData);
+//            LOG.info("定时任务项目jdbc加密："+enData);
             byte[] enBytes = enData.getBytes("UTF-8");
             encrypfile = new File(outFile);
             outputStream = new FileOutputStream(encrypfile);
@@ -124,9 +124,9 @@ public class CryptUtil {
             DesUtil des = new DesUtil();
             inputStream.read(b);
             String data = new String(b).toString();
-            LOG.info("定时任务项目jdbc密文："+data);
+//            LOG.info("定时任务项目jdbc密文："+data);
             String deData = des.decrypt(data);
-            LOG.info("定时任务项目jdbc解密："+deData);
+//            LOG.info("定时任务项目jdbc解密："+deData);
             byte[] enBytes = deData.getBytes("UTF-8");
             decryptFile = new File(outFile);
             outputStream = new FileOutputStream(decryptFile);

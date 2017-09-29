@@ -6,6 +6,7 @@ import com.manager.login.LoginDecrypt;
 import com.util.SpringContext;
 import org.apache.log4j.Logger;
 
+import java.util.Map;
 import java.util.Scanner;
 
 public class LaunchApp {
@@ -13,6 +14,10 @@ public class LaunchApp {
 
     public static void main(String[] args) {
         SpringContext.init();
+//        Map map = (Map<String ,String>) SpringContext.getBean("managerLoginConfig");
+        Map map = (Map<String ,String>) SpringContext.getBean("managerLoginConfig");
+        String key = (String) map.get("key");
+        String enPassword = (String) map.get("enPassword");
         int choose = menu();
         switch (choose) {
             case 1:
@@ -30,6 +35,9 @@ public class LaunchApp {
     }
 
     private static int menu() {
+        System.out.println("jdbc文件加解密提示：\n" +
+                "加密：请将文件命名为jdbc.properties,放入config/jdbc/decrypt目录下，加密好的文件存放在encrypt下;\n"+
+                "解密：请将文件命名为jdbc.properties,放入config/jdbc/encrypt目录下，解密好的文件存放在decrypt下;\n");
         System.out.print("" +
                 "1. 综合平台登录密码加解密；\n" +
                 "2. 综合平台jdbc.properties加解密；\n" +
@@ -62,6 +70,7 @@ public class LaunchApp {
         int choose = subMenu();
         String input;
         LoginDecrypt decrypt = new LoginDecrypt();
+//        LoginDecrypt decrypt = (LoginDecrypt) SpringContext.getBean("managerLogin");
         switch (choose) {
             case 1:
                 input = readInput();
@@ -103,7 +112,6 @@ public class LaunchApp {
     private static void case2() {
         int choose = subMenu();
         ManagerJdbcDecrypt decrypt = new ManagerJdbcDecrypt();
-        System.out.println("请将文件命名为jdbc.properties,放入config对应的文件夹下！");
         switch (choose) {
             case 1:
                 try {
@@ -157,6 +165,7 @@ public class LaunchApp {
     }
 
     private static String readInput() {
+        System.out.print("请输入需要加密或解密的密码：");
         Scanner sc = new Scanner(System.in);
         String input = sc.nextLine();
         return input;
