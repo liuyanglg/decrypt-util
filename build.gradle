@@ -5,27 +5,14 @@ apply plugin: 'java'
 apply plugin: 'application'
 apply plugin: 'idea'
 
-tasks.withType(JavaCompile) {
-    options.encoding = "UTF-8"
-}
-
-idea{
-    module {
-        inheritOutputDirs = false
-        outputDir =file("${buildDir}/classes")
-        testOutputDir = file("${buildDir}/test-classes")
-//        outputDir = compileJava.destinationDir
-//        testOutputDir = compileTestJava.destinationDir
-    }
-}
-
 sourceCompatibility = 1.8
-
-mainClassName='com.main.LaunchApp'
 
 repositories {
     mavenCentral()
 }
+
+//启动类
+mainClassName='com.main.LaunchApp'
 
 sourceSets {
     main {
@@ -41,24 +28,41 @@ sourceSets {
         }
     }
 }
+
 dependencies {
-//    compile projects('decrypt')
     testCompile group: 'junit', name: 'junit', version: '4.12'
     compile group: 'log4j', name: 'log4j', version: '1.2.17'
     compile group: 'org.springframework', name: 'spring-context', version: '4.2.4.RELEASE'
     compile group: 'org.springframework', name: 'spring-core', version: '4.2.4.RELEASE'
     compile group: 'org.springframework', name: 'spring-beans', version: '4.2.4.RELEASE'
-    compile group: 'org.springframework', name: 'spring-context-support', version: '4.2.4.RELEASE'
-
+//    compile group: 'org.springframework', name: 'spring-context-support', version: '4.2.4.RELEASE'
 }
 
+//设置编码格式
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
+
+//设置编译输出路径
+idea{
+    module {
+        inheritOutputDirs = false
+        outputDir =file("${buildDir}/classes")
+        testOutputDir = file("${buildDir}/test-classes")
+//        outputDir = compileJava.destinationDir
+//        testOutputDir = compileTestJava.destinationDir
+    }
+}
+
+//打jar包
 def mainClassName = "com.main.LaunchApp"
+
 jar{
     manifest {
         attributes "Main-Class": "$mainClassName"
     }
-
     from {
         configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
     }
 }
+
