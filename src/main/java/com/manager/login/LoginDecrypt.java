@@ -35,13 +35,14 @@ public class LoginDecrypt {
     public   String decrypt() throws Exception{
         String tKey = (String) map.get("key");
         String tPassword = (String) map.get("enPassword");
-        LOG.info("综合平台登录密码密文："+tPassword);
         if(tKey!=null&&tKey.length()>0){
             key = tKey;
         }
-        if(tPassword!=null&&tPassword.length()>0){
+        if(enPassword!=null&&enPassword.trim().length()>0){
+        }else {
             enPassword = tPassword;
         }
+        LOG.info("综合平台登录密码密文："+enPassword);
         byte[] deBytes = enPassword.getBytes("UTF-8");
         byte[] tBytes = CryptUtils.hex2byte(deBytes);
         byte[] enBytes = CryptUtils.decrypt(key, tBytes);
@@ -53,13 +54,15 @@ public class LoginDecrypt {
     public   String encrypt() throws Exception{
         String tKey = (String) map.get("key");
         String tPassword = (String) map.get("dePassword");
-        LOG.info("综合平台登录密码原文："+tPassword);
         if(tKey!=null&&tKey.length()>0){
             key = tKey;
         }
-        if(tPassword!=null&&tPassword.length()>0){
+        if(dePassword!=null&&dePassword.trim().length()>0){
+        }else {
             dePassword = tPassword;
         }
+        LOG.info("综合平台登录密码原文："+dePassword);
+
         byte[] deBytes = dePassword.getBytes("UTF-8");
         byte[] enBytes = CryptUtils.encrypt(key,deBytes);
         enPassword = CryptUtils.byte2hex(enBytes);

@@ -70,12 +70,11 @@ public class LaunchApp {
         int choose = subMenu();
         String input;
         LoginDecrypt decrypt = new LoginDecrypt();
-//        LoginDecrypt decrypt = (LoginDecrypt) SpringContext.getBean("managerLogin");
         switch (choose) {
             case 1:
                 input = readInput();
                 if (input != null && input.trim().length() > 0) {
-                    decrypt.setEnPassword(input.trim());
+                    decrypt.setDePassword(input.trim());
                 }else {
                     System.out.println("输入为空，将使用配置文件中属性值！");
                 }
@@ -91,7 +90,7 @@ public class LaunchApp {
             case 2:
                 input = readInput();
                 if (input != null && input.trim().length() > 0) {
-                    decrypt.setDePassword(input.trim());
+                    decrypt.setEnPassword(input.trim());
                 }else {
                     System.out.println("输入为空，将使用配置文件中属性值！");
                 }
@@ -139,7 +138,6 @@ public class LaunchApp {
     private static void case3() {
         int choose = subMenu();
         DservJdbcDecrypt decrypt = new DservJdbcDecrypt();
-        System.out.println("请将文件命名为jdbc.properties,放入config对应的文件夹下！");
         switch (choose) {
             case 1:
                 try {
